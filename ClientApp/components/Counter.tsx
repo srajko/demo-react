@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-interface CounterState {
-    currentCount: number;
+interface CounterProps {
+    currentCount: number,
+    incrementCounter: () => void
 }
 
-export class Counter extends React.Component<RouteComponentProps<{}>, CounterState> {
-    constructor() {
-        super();
-        this.state = { currentCount: 0 };
+export class Counter extends React.Component<CounterProps, {}> {
+
+    public componentWillReceiveProps(nextProps: CounterProps) {
+        console.log(nextProps);
     }
 
     public render() {
@@ -17,15 +18,9 @@ export class Counter extends React.Component<RouteComponentProps<{}>, CounterSta
 
             <p>This is a simple example of a React component.</p>
 
-            <p>Current count: <strong>{ this.state.currentCount }</strong></p>
+            <p>Current count: <strong>{this.props.currentCount}</strong></p>
 
-            <button onClick={ () => { this.incrementCounter() } }>Increment</button>
+            <button onClick={ () => { this.props.incrementCounter() } }>Increment</button>
         </div>;
-    }
-
-    incrementCounter() {
-        this.setState({
-            currentCount: this.state.currentCount + 1
-        });
     }
 }
